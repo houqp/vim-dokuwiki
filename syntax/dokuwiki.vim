@@ -46,8 +46,12 @@ imap <buffer> ,,l [[ <+LINK+> \| <+LINK_TEXT+> ]]
 " Files & Images
 imap <buffer> ,,f {{ <+LINK+> \| <+LINK_TEXT+> }}
 
-" Code Block
-imap <buffer> ,,cd <code <+LANG+>><+CODE+></code>
+" Blocks (code, file, html, php)
+imap <buffer> ,,cb <code <+LANG+>><+CODE+></code>
+imap <buffer> ,,fb <file <+LANG+> <+FILE_NAME+>><+FILE_CONTENT+></file>
+imap <buffer> ,,hb <html><+CODE+></html><C-j>
+imap <buffer> ,,pb <php><+CODE+></php><C-j>
+imap <buffer> ,,nb <nowiki><+COMMENT+></nowiki><C-j>
 
 
 
