@@ -41,6 +41,11 @@ nmap <buffer> ,,ol :call Doku_add_ordered_list()<CR>
 vmap <buffer> ,,ul :call Doku_add_unordered_list_range()<CR>
 vmap <buffer> ,,ol :call Doku_add_ordered_list_range()<CR>
 
+" Links
+imap <buffer> ,,l [[ <+LINK+> \| <+LINK_TEXT+> ]]
+" Files & Images
+imap <buffer> ,,f {{ <+LINK+> \| <+LINK_TEXT+> }}
+
 " Code Block
 imap <buffer> ,,cd <code <+LANG+>><+CODE+></code>
 
