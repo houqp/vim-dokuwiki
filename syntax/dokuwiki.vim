@@ -22,6 +22,10 @@ elseif exists("b:current_syntax")
 endif
 
 """ key bindings
+" jump mappings to place holder
+nnoremap <buffer> <c-j> /<+.\{-1,}+><cr>c/+>/e<cr>
+inoremap <buffer> <c-j> <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
+
 " Heading
 imap <buffer> ,,h1 <ESC>I====== <+TITLE+> ======<ESC>o<+CONTENT+><C-j>
 imap <buffer> ,,h2 <ESC>I===== <+TITLE+> =====<ESC>o<+CONTENT+><C-j>
