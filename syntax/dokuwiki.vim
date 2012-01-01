@@ -22,6 +22,13 @@ elseif exists("b:current_syntax")
 endif
 
 """ key bindings
+" Heading
+imap <buffer> ,,h1 <ESC>I====== <+TITLE+> ======<ESC>o<+CONTENT+><C-j>
+imap <buffer> ,,h2 <ESC>I===== <+TITLE+> =====<ESC>o<+CONTENT+><C-j>
+imap <buffer> ,,h3 <ESC>I==== <+TITLE+> ====<ESC>o<+CONTENT+><C-j>
+imap <buffer> ,,h4 <ESC>I=== <+TITLE+> ===<ESC>o<+CONTENT+><C-j>
+imap <buffer> ,,h5 <ESC>I== <+TITLE+> ==<ESC>o<+CONTENT+><C-j>
+
 " Lists
 imap <buffer> ,,ul <ESC>:call Doku_add_unordered_list()<CR>A
 imap <buffer> ,,ol <ESC>:call Doku_add_ordered_list()<CR>A
@@ -197,9 +204,9 @@ function! _Doku_add_list_markup(iline, sign)
 			break
 		endif
 	endfor
-  if a:iline[white_spaces] == " "
-    let white_spaces = white_spaces + 1
-  endif
+	if a:iline[white_spaces] == " "
+		let white_spaces = white_spaces + 1
+	endif
 	" add markup
 	if white_spaces
 		return (a:iline[:white_spaces - 1] . "  " . a:sign . " " . a:iline[(white_spaces):])
