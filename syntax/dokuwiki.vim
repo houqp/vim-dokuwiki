@@ -94,6 +94,9 @@ syn region dokuwikiCodeBlocks start="<code>" end="</code>"
 syn region dokuwikiCodeBlocks start="<file>" end="</file>"
 syn region dokuwikiCodeBlocks start="^\s\s[^\s\*-]\{3,}" end="$"
 
+"Quotes
+syn match dokuwikiQuotes />\+ /
+
 "Tables
 syn match dokuwikiTable /\(|\)\|\(\^\)/ contains=@dokuwikiTextItems
 
@@ -137,6 +140,8 @@ hi link dokuwikiImageFiles Underlined
 hi link dokuwikiControlMacros Constant
 
 hi link dokuwikiCodeBlocks String
+
+hi link dokuwikiQuotes Visual
 
 hi link dokuwikiTable Label
 
