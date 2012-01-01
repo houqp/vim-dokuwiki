@@ -23,47 +23,16 @@ endif
 
 """ key bindings
 " Lists
-imap <buffer> ,,ul <ESC>:call Doku_add_unordered_list()<CR>
-imap <buffer> ,,ol <ESC>:call Doku_add_ordered_list()<CR>
+imap <buffer> ,,ul <ESC>:call Doku_add_unordered_list()<CR>A
+imap <buffer> ,,ol <ESC>:call Doku_add_ordered_list()<CR>A
 nmap <buffer> ,,ul :call Doku_add_unordered_list()<CR>
 nmap <buffer> ,,ol :call Doku_add_ordered_list()<CR>
 vmap <buffer> ,,ul :call Doku_add_unordered_list_range()<CR>
 vmap <buffer> ,,ol :call Doku_add_ordered_list_range()<CR>
 
-"TODO add indent detecting here
-function! Doku_add_unordered_list()
-	let lineno = line(".")
-	call setline(lineno, "  * " . getline(lineno))
-endfunction
-
-function! Doku_add_ordered_list()
-	let lineno = line(".")
-	call setline(lineno, "  - " . getline(lineno))
-endfunction
-
-function! Doku_add_unordered_list_range() range
-	let beginning = line("'<")
-	let ending = line("'>")
-	let i = beginning
-	while (i <= ending)
-		call setline(i, "  * " . getline(i))
-		let i = i + 1
-	endwhile
-endfunction
-
-function! Doku_add_ordered_list_range() range
-	let beginning = line("'<")
-	let ending = line("'>")
-	let i = beginning
-	while (i <= ending)
-		call setline(i, "  - " . getline(i))
-		let i = i + 1
-	endwhile
-endfunction
-
-
-" code block
+" Code Block
 imap <buffer> ,,cd <code <+LANG+>><+CODE+></code>
+
 
 
 """ Patterns
@@ -174,6 +143,61 @@ hi link dokuwikiTable Label
 hi link dokuwikiEmbedded String
 
 hi link dokuwikiComment Comment
+
+
+
+""" Function definitions
+" Lists
+function! Doku_add_unordered_list()
+	let lineno = line(".")
+	call setline(lineno, _Doku_add_list_markup(getline(lineno), "*"))
+endfunction
+
+function! Doku_add_ordered_list()
+	let lineno = line(".")
+	call setline(lineno, _Doku_add_list_markup(getline(lineno), "-"))
+endfunction
+
+function! Doku_add_unordered_list_range() range
+	let beginning = line("'<")
+	let ending = line("'>")
+	let i = beginning
+	while (i <= ending)
+		call setline(i, _Doku_add_list_markup(getline(i), "*"))
+		let i = i + 1
+	endwhile
+endfunction
+
+function! Doku_add_ordered_list_range() range
+	let beginning = line("'<")
+	let ending = line("'>")
+	let i = beginning
+	while (i <= ending)
+		call setline(i, _Doku_add_list_markup(getline(i), "-"))
+		let i = i + 1
+	endwhile
+endfunction
+
+function! _Doku_add_list_markup(iline, sign)
+	" count leading spaces
+	let white_spaces = 0
+	for white_spaces in range(len(a:iline))
+		if a:iline[white_spaces] != " "
+			let white_spaces = white_spaces
+			break
+		endif
+	endfor
+  if a:iline[white_spaces] == " "
+    let white_spaces = white_spaces + 1
+  endif
+	" add markup
+	if white_spaces
+		return (a:iline[:white_spaces - 1] . "  " . a:sign . " " . a:iline[(white_spaces):])
+	else
+		return ("  " . a:sign . " " . a:iline)
+	endif
+endfunction
+
 
 
 "set name
