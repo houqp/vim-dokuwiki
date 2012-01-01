@@ -23,26 +23,27 @@ endif
 
 """ key bindings
 " Lists
-imap <buffer> ,,ul <ESC>:call DokuAddUnorderedList()<CR>
-imap <buffer> ,,ol <ESC>:call DokuAddOrderedList()<CR>
-nmap <buffer> ,,ul :call DokuAddUnorderedListRange()<CR>
-nmap <buffer> ,,ol :call DokuAddOrderedListRange()<CR>
-"nmap <buffer> ,,ll :call NumberList()<CR>
+imap <buffer> ,,ul <ESC>:call Doku_add_unordered_list()<CR>
+imap <buffer> ,,ol <ESC>:call Doku_add_ordered_list()<CR>
+nmap <buffer> ,,ul :call Doku_add_unordered_list()<CR>
+nmap <buffer> ,,ol :call Doku_add_ordered_list()<CR>
+vmap <buffer> ,,ul :call Doku_add_unordered_list_range()<CR>
+vmap <buffer> ,,ol :call Doku_add_ordered_list_range()<CR>
 
 "TODO add indent detecting here
-function! DokuAddUnorderedList()
+function! Doku_add_unordered_list()
 	let lineno = line(".")
 	call setline(lineno, "  * " . getline(lineno))
 endfunction
 
-function! DokuAddOrderedList()
+function! Doku_add_ordered_list()
 	let lineno = line(".")
 	call setline(lineno, "  - " . getline(lineno))
 endfunction
 
-function! DokuAddUnorderedListRange() range
+function! Doku_add_unordered_list_range() range
 	let beginning = line("'<")
-	let ending = line(">'")
+	let ending = line("'>")
 	let i = beginning
 	while (i <= ending)
 		call setline(i, "  * " . getline(i))
@@ -50,25 +51,16 @@ function! DokuAddUnorderedListRange() range
 	endwhile
 endfunction
 
-function! DokuAddOrderedListRange() range
+function! Doku_add_ordered_list_range() range
+	let beginning = line("'<")
+	let ending = line("'>")
+	let i = beginning
+	while (i <= ending)
+		call setline(i, "  - " . getline(i))
+		let i = i + 1
+	endwhile
 endfunction
 
-
-"function! NumberList() range
-"" set line numbers in front of lines
-"let beginning=line("'<")
-"let ending= line("'>")
-"let difsize = ending-beginning +1
-"let pre = ' '
-"while (beginning <= ending)
-"if match(difsize, '^9*$') == 0
-"let pre = pre . ' '
-"endif
-"call setline(ending, pre . difsize . "\t" . getline(ending))
-"let ending=ending-1
-"let difsize=difsize-1
-"endwhile
-"endfunction
 
 " code block
 imap <buffer> ,,cd <code <+LANG+>><+CODE+></code>
