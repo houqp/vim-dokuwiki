@@ -27,31 +27,31 @@ nnoremap <buffer> <c-j> /<+.\{-1,}+><cr>c/+>/e<cr>
 inoremap <buffer> <c-j> <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
 
 " Heading
-imap <buffer> ,,h1 <ESC>I====== <+TITLE+> ======<ESC>o<+CONTENT+><C-j>
-imap <buffer> ,,h2 <ESC>I===== <+TITLE+> =====<ESC>o<+CONTENT+><C-j>
-imap <buffer> ,,h3 <ESC>I==== <+TITLE+> ====<ESC>o<+CONTENT+><C-j>
-imap <buffer> ,,h4 <ESC>I=== <+TITLE+> ===<ESC>o<+CONTENT+><C-j>
-imap <buffer> ,,h5 <ESC>I== <+TITLE+> ==<ESC>o<+CONTENT+><C-j>
+imap <buffer> <Leader><Leader>h1 <ESC>I====== <+TITLE+> ======<ESC>o<+CONTENT+><C-j>
+imap <buffer> <Leader><Leader>h2 <ESC>I===== <+TITLE+> =====<ESC>o<+CONTENT+><C-j>
+imap <buffer> <Leader><Leader>h3 <ESC>I==== <+TITLE+> ====<ESC>o<+CONTENT+><C-j>
+imap <buffer> <Leader><Leader>h4 <ESC>I=== <+TITLE+> ===<ESC>o<+CONTENT+><C-j>
+imap <buffer> <Leader><Leader>h5 <ESC>I== <+TITLE+> ==<ESC>o<+CONTENT+><C-j>
 
 " Lists
-imap <buffer> ,,ul <ESC>:call Doku_add_unordered_list()<CR>A
-imap <buffer> ,,ol <ESC>:call Doku_add_ordered_list()<CR>A
-nmap <buffer> ,,ul :call Doku_add_unordered_list()<CR>
-nmap <buffer> ,,ol :call Doku_add_ordered_list()<CR>
-vmap <buffer> ,,ul :call Doku_add_unordered_list_range()<CR>
-vmap <buffer> ,,ol :call Doku_add_ordered_list_range()<CR>
+imap <buffer> <Leader><Leader>ul <ESC>:call Doku_add_unordered_list()<CR>A
+imap <buffer> <Leader><Leader>ol <ESC>:call Doku_add_ordered_list()<CR>A
+nmap <buffer> <Leader><Leader>ul :call Doku_add_unordered_list()<CR>
+nmap <buffer> <Leader><Leader>ol :call Doku_add_ordered_list()<CR>
+vmap <buffer> <Leader><Leader>ul :call Doku_add_unordered_list_range()<CR>
+vmap <buffer> <Leader><Leader>ol :call Doku_add_ordered_list_range()<CR>
 
 " Links
-imap <buffer> ,,l [[ <+LINK+> \| <+LINK_TEXT+> ]]
+imap <buffer> <Leader><Leader>l [[ <+LINK+> \| <+LINK_TEXT+> ]]
 " Files & Images
-imap <buffer> ,,f {{ <+LINK+> \| <+LINK_TEXT+> }}
+imap <buffer> <Leader><Leader>f {{ <+LINK+> \| <+LINK_TEXT+> }}
 
 " Blocks (code, file, html, php)
-imap <buffer> ,,cb <code <+LANG+>><+CODE+></code>
-imap <buffer> ,,fb <file <+LANG+> <+FILE_NAME+>><+FILE_CONTENT+></file>
-imap <buffer> ,,hb <html><+CODE+></html><C-j>
-imap <buffer> ,,pb <php><+CODE+></php><C-j>
-imap <buffer> ,,nb <nowiki><+COMMENT+></nowiki><C-j>
+imap <buffer> <Leader><Leader>cb <code <+LANG+>><+CODE+></code>
+imap <buffer> <Leader><Leader>fb <file <+LANG+> <+FILE_NAME+>><+FILE_CONTENT+></file>
+imap <buffer> <Leader><Leader>hb <html><+CODE+></html><C-j>
+imap <buffer> <Leader><Leader>pb <php><+CODE+></php><C-j>
+imap <buffer> <Leader><Leader>nb <nowiki><+COMMENT+></nowiki><C-j>
 
 
 
@@ -210,6 +210,7 @@ endfunction
 
 function! _Doku_add_list_markup(iline, sign)
 	" count leading spaces
+	" @TODO use match() 
 	let white_spaces = 0
 	for white_spaces in range(len(a:iline))
 		if a:iline[white_spaces] != " "
